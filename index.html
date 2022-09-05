@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="mb-3">
+                    <label for="cep" class="form-label">CEP</label>
+                    <input type="text" v-model="cep" class="form-control" id="cep">
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-success mt-4" v-on:click="buscaCep" v-on:click="buscaCep"> buscar</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mb-3">
+                    <label for="rua" class="form-label">Rua</label>
+                    <input v-model="form.rua" type="text" class="form-control" id="rua">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="bairro" class="form-label">Bairro</label>
+                    <input v-model="form.bairro" type="text" class="form-control" id="bairro">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="cidade" class="form-label">Cidade</label>
+                    <input v-model="form.cidade" type="text" class="form-control" id="cidade">
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="mb-3">
+                    <label for="estado" class="form-label">Estado</label>
+                    <input v-model="form.estado" type="text" class="form-control" id="estado">
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</body>
+
+<script>
+    //objeto contendo todos parametros e metodos do vue
+    var options = {
+        //objeto principal
+        el: '#app',
+        //parametros
+        data: {
+            cep: "",
+            form: {
+                rua: "",
+                bairro: "",
+                cidade: "",
+                estado: ""
+            }
+        },
+        //metodos
+        methods: {
+            buscaCep() {
+                console.log("clicou")
+                this.form.rua = "O nome da rua";
+                this.form.bairro = "O nome do bairro";
+                this.form.cidade = "Cidade onde mora";
+                this.form.estado = "ESTADO";
+            }
+        }
+    }
+
+    const vm = new Vue(options);
+
+</script>
+
+</html>
