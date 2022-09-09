@@ -14,6 +14,8 @@
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
 
@@ -85,11 +87,14 @@
         //metodos
         methods: {
             buscaCep() {
-                console.log("clicou")
-                this.form.rua = "O nome da rua";
-                this.form.bairro = "O nome do bairro";
-                this.form.cidade = "Cidade onde mora";
-                this.form.estado = "ESTADO";
+                axios.get("https://viacep.com.br/ws/" + this.cep + "/json/")
+                    .then(response => {
+                        console.log(response.data);
+                        this.form.rua = response.data.logradouro;
+                        this.form.bairro = response.data.bairro;
+                        this.form.cidade = response.data.localidade;
+                        this.form.estado = response.data.uf;
+                    });
             }
         }
     }
