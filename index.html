@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="formulario">
             <div class="col-md-12">
                 <div class="mb-3">
                     <label for="rua" class="form-label">Rua</label>
@@ -62,8 +62,31 @@
                     <input v-model="form.estado" type="text" class="form-control" id="estado">
                 </div>
             </div>
+        </div>
+        <div class="row" v-else>
+            <div class="col-md-12">
+                <h2>preencha o cep</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Tabela de usuarios</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
 
-
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="usuario in usuarios">
+                            <td>{{usuario.nome}}</td>
+                            <td>{{usuario.email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -77,24 +100,36 @@
         //parametros
         data: {
             cep: "",
+            formulario: false,
             form: {
                 rua: "",
                 bairro: "",
                 cidade: "",
                 estado: ""
-            }
+            },
+            usuarios: [
+                { nome: "MAuricio", email: "mauriciolanner@gmail.com" },
+                { nome: "Carol", email: "carol@gmail.com" },
+                { nome: "Vinicius", email: "vinicius@gmail.com" }
+            ]
         },
         //metodos
         methods: {
             buscaCep() {
-                axios.get("https://viacep.com.br/ws/" + this.cep + "/json/")
-                    .then(response => {
-                        console.log(response.data);
-                        this.form.rua = response.data.logradouro;
-                        this.form.bairro = response.data.bairro;
-                        this.form.cidade = response.data.localidade;
-                        this.form.estado = response.data.uf;
-                    });
+                if (this.cep == '') {
+                    this.formulario = false;
+                } else {
+                    this.formulario = true;
+                    axios.get("https://viacep.com.br/ws/" + this.cep + "/json/")
+                        .then(response => {
+                            console.log(response);
+                            this.form.rua = response.data.logradouro;
+                            this.form.bairro = response.data.bairro;
+                            this.form.cidade = response.data.localidade;
+                            this.form.estado = response.data.uf;
+                        });
+                }
+
             }
         }
     }
